@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
 // 公共菜单
 export const constantRoutes = [
   {
-    path: '/',
-    redirect: '/login'
+    path: "/",
+    redirect: "/login",
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/login_index'),
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/login/login_index"),
   },
 ];
 
@@ -20,7 +20,7 @@ export const constantRoutes = [
 export const asyncRouters = [];
 
 const router = new Router({
-  mode: 'history', // 设置历史模式
+  mode: "history", // 设置历史模式
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes,
 });

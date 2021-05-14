@@ -11,7 +11,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: "8888",
-    open: true,
+    open: false,
     compress: true,
     // 开发环境设置代理
     // proxy: proxyConfig

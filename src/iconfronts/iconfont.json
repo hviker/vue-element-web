@@ -1,0 +1,23 @@
+{
+  "id": "2548328",
+  "name": "vue-element-web",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-pc-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1901673",
+      "name": "密码",
+      "font_class": "pwd",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "7578846",
+      "name": "用户",
+      "font_class": "user",
+      "unicode": "e7d8",
+      "unicode_decimal": 59352
+    }
+  ]
+}
