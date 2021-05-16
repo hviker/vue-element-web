@@ -9,6 +9,11 @@ import store from "./store";
 import service from "./utils/axios";
 import "./icons/icons_index";
 import "./permission";
+import "./utils/mock"
+
+// if (process.env.NODE_ENV === "development") {
+//   require("./utils/mock");
+// }
 
 import SvgIcon from "./components/SvgIcon/install";
 Vue.use(SvgIcon);

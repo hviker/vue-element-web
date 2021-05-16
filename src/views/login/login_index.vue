@@ -11,7 +11,7 @@
         <el-tooltip
           class="item cursorPointer"
           effect="dark"
-          content="纯前端环境下用户名、密码都是admin"
+          content="纯前端环境下用户名、密码任意输入"
           placement="right-start"
         >
           <i class="el-icon-info"></i>
@@ -67,6 +67,7 @@
 <script>
 import { isNeedFreeLogin, expiresDay } from "./settings";
 import {
+  setToken,
   getUserName,
   setUserName,
   removeUserName,
@@ -77,6 +78,7 @@ import {
   setIsChecked,
   removeIsChecked,
 } from "@/utils/auth";
+import { login } from "@/api/login";
 export default {
   name: "Login",
   components: {},
@@ -108,23 +110,24 @@ export default {
   created() {
     isNeedFreeLogin && this.initUserInfo();
   },
-  mounted() {},
-  beforeDestroy() {}, //生命周期 - 销毁之前
-  destroyed() {}, //生命周期 - 销毁完成
-  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
-  //方法集合
   methods: {
     changePasswordType() {
       this.passwordType =
         this.passwordType === "password" ? "text" : "password";
     },
     submitLogin() {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
-          // todo 请求
+          const { token } = await login(this.loginForm);
+          this.saveToken(token);
           isNeedFreeLogin && this.rememberInfo(this.loginForm.isChecked);
+          this.$router.push({ path: "/dashboard" });
         }
       });
+    },
+    saveToken(token) {
+      setToken(token);
+      this.$store.dispatch("user/setToken", token);
     },
     rememberInfo(isChecked) {
       if (isChecked) {

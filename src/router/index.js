@@ -14,10 +14,35 @@ export const constantRoutes = [
     name: "Login",
     component: () => import("@/views/login/login_index"),
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("@/views/dashboard/dashboard_index"),
+  },
 ];
 
 // 权限菜单
-export const asyncRouters = [];
+export const asyncRouters = [
+  {
+    path: "/system",
+    name: "System",
+    component: () => import("@/views/dashboard/dashboard_index"),
+    meta: {
+      roles: ["editor"],
+    },
+    children: [
+      {
+        path: "deptmanagement",
+        name: "Deptmanagement",
+        component: () =>
+          import("@/views/system/deptmanagement/deptmanagement_index"),
+        meta: {
+          roles: ["editor"],
+        },
+      },
+    ],
+  },
+];
 
 const router = new Router({
   mode: "history", // 设置历史模式

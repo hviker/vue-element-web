@@ -15,10 +15,10 @@ const service = axios.create({
 
 service.interceptors.request.use((config) => {
   if (store.getters.token) {
-      // 存储请求头
+    // 存储请求头
     config.headers["AuthorizeToken"] = getToken();
   }
-  return service;
+  return config;
 });
 
 service.interceptors.response.use(
@@ -27,9 +27,8 @@ service.interceptors.response.use(
     // 根据编码进行处理
     const code = res.code;
     if (Normal.has(code)) {
-      return res;
+      return res.data;
     } else {
-      Message.error(res.message | "Error");
       if (NoPermission.has(code)) {
         MessageBox.confirm("权限过期或者无访问权限，请登录后重试", "提示", {
           confirmButtonText: "跳转登录页面",
@@ -37,6 +36,11 @@ service.interceptors.response.use(
           type: "warning",
         }).then(() => {
           router.push("/login");
+        });
+      } else {
+        Message({
+          type: "error",
+          message: res.message || "Error",
         });
       }
       return Promise.reject(new Error(res.message || "Error"));
@@ -49,11 +53,11 @@ service.interceptors.response.use(
 );
 
 // 封装get
-service.$get = (url, data) => {
-  return service.get(url, data);
+service.$get = (url, data = {}) => {
+  return service.get(url, { params: data });
 };
 // 封装post
-service.$post = (url, data) => {
+service.$post = (url, data = {}) => {
   return service.post(url, qs.stringify(data));
 };
 
