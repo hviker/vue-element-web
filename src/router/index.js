@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Layout from "@/layout/layout_index"
 
 Vue.use(Router);
 
@@ -16,8 +17,14 @@ export const constantRoutes = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
-    component: () => import("@/views/dashboard/dashboard_index"),
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "Dashboard",
+        component: () => import("@/views/dashboard/dashboard_index")
+      }
+    ]
   },
 ];
 

@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import { whitelist } from "./whitelist";
 import { getToken } from "@/utils/auth";
-import { MessageBox } from "element-ui";
+import { Message, MessageBox } from "element-ui";
 
 /**
  *  1. 判断是否存在token， token不存在是对于白名单中的路由可以直接访问
@@ -18,20 +18,31 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = getToken();
   if (hasToken) {
     if (to.path === "/login") {
-      next({ path: "/dashboard" });
+      next({ path: "/dashboard/index" });
+      NProgress.done();
     } else {
-      const hasRoles =
-        store.getters.roleList && store.getters.roleList.length > 0;
-      if (hasRoles) {
-        next();
-      } else {
-        const roleList = await store.dispatch("user/getInfo");
-        const accessRoutes = await store.dispatch(
-          "permission/getAccessRoutes",
-          roleList
-        );
-        router.addRoutes(accessRoutes);
-        next({ ...to, replace: true });
+      try {
+        const hasRoles =
+          store.getters.roleList && store.getters.roleList.length > 0;
+        if (hasRoles) {
+          next();
+        } else {
+          const roleList = await store.dispatch("user/getInfo");
+          const accessRoutes = await store.dispatch(
+            "permission/getAccessRoutes",
+            roleList
+          );
+          router.addRoutes(accessRoutes);
+          next({ ...to, replace: true });
+        }
+      } catch (error) {
+        await store.dispatch("user/resetToken");
+        Message({
+          type: "error",
+          message: error || "Error",
+        });
+        next(`/login?redirect=${to.path}`);
+        NProgress.done();
       }
     }
   } else {
@@ -44,6 +55,7 @@ router.beforeEach(async (to, from, next) => {
         type: "warning",
       }).then(() => {
         next({ path: "/login" });
+        NProgress.done();
       });
     }
   }

@@ -2,7 +2,7 @@ import { getUserInfo } from "@/api/login";
 const state = {
   token: "",
   userInfo: null,
-  roleList: null,
+  roleList: [],
 };
 
 const mutations = {
@@ -38,6 +38,14 @@ const actions = {
         });
     });
   },
+  resetToken({commit}) {
+    return new Promise((resolve) => {
+      commit("SET_TOKEN", "");
+      commit("SET_USERINFO", null);
+      commit("roleList", []);
+      resolve();
+    })
+  }
 };
 
 export default {
