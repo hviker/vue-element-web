@@ -38,14 +38,14 @@ const actions = {
         });
     });
   },
-  resetToken({commit}) {
+  resetToken({ commit }) {
     return new Promise((resolve) => {
       commit("SET_TOKEN", "");
       commit("SET_USERINFO", null);
-      commit("roleList", []);
+      commit("SET_ROLELIST", []);
       resolve();
-    })
-  }
+    });
+  },
 };
 
 export default {

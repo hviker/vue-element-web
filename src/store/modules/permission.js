@@ -9,6 +9,10 @@ const mutations = {
     state.asscessRoutes = asscessRoutes;
     state.routes = [...constantRoutes, ...asscessRoutes];
   },
+  SET_TRANSPATHLIST: (state, transPathList) => {
+    state.transPathList = transPathList;
+  }
+
 };
 
 const actions = {
@@ -23,7 +27,7 @@ const actions = {
       commit("SET_ASSCESSROUTES", asyncRouters);
       resolve(asscessRoutes);
     });
-  },
+  }
 };
 
 function getFilterRouters(routes, roleList) {

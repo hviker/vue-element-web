@@ -1,5 +1,5 @@
 <template>
-  <div class="mainArea">
+  <div>
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedPathList">
         <router-view :key="key" />
@@ -19,6 +19,6 @@ export default {
     cachedPathList() {
       return cachedPathList;
     },
-  }
+  },
 };
 </script>

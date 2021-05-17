@@ -13,6 +13,7 @@ module.exports = {
     port: "8888",
     open: false,
     compress: true,
+    hot: true,
     // 开发环境设置代理
     // proxy: proxyConfig
   },
