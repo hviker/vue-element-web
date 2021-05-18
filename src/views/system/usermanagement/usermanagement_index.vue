@@ -1,10 +1,12 @@
 <template>
-  <div class="container-wrapper">部门管理</div>
+  <div class="container-wrapper">
+    用户管理
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Deptmanagement_Index",
+  name: "Usermanagement_Index",
   components: {},
   data() {
     return {};

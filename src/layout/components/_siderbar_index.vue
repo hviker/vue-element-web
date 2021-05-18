@@ -7,21 +7,25 @@
         :basepath="resolvePath(item.path)"
         @click="clickToPath(item.path)"
       >
-        <i class="el-icon-menu"></i>
+        <template v-if="item.meta && item.meta.icon">
+          <svg-icon :iconClass="item.meta.icon"></svg-icon>
+        </template>
         <span slot="title">{{ item.title }}</span>
       </el-menu-item>
     </template>
     <!-- 当存在children并且children中可显示数量不为0时 -->
     <template v-else>
       <template
-        v-if="getShowChildsNum(item.children) === 1 && isSingleChildStack"
+        v-if="getShowChildsNum(item.children) === 1 && item.titleHidden"
       >
         <el-menu-item
           :index="item.children[0].name"
           :basepath="resolvePath(item.children[0].path)"
-          @click="resolvePath(item.children[0].path)"
+          @click="clickToPath(item.children[0].path)"
         >
-          <i class="el-icon-menu"></i>
+        <template v-if="item.children[0].meta && item.children[0].meta.icon">
+          <svg-icon :iconClass="item.children[0].meta.icon"></svg-icon>
+        </template>
           <span slot="title">{{ item.children[0].title }}</span>
         </el-menu-item>
       </template>
@@ -29,14 +33,16 @@
       <template v-else>
         <el-submenu :index="item.name">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <template v-if="item.meta && item.meta.icon">
+              <svg-icon :iconClass="item.meta.icon"></svg-icon>
+            </template>
             <span>{{ item.title }}</span>
           </template>
           <SiderBar
             v-for="route in item.children"
             :key="route.name"
             :item="route"
-            :basePath="resolvePath(route.path, true)"
+            :basePath="resolvePath(route.path,route.children && route.children.length > 0 ? false : true)"
           ></SiderBar>
         </el-submenu>
       </template>
@@ -46,7 +52,6 @@
 
 <script>
 import path from "path";
-import { isSingleChildStack } from "@/settings";
 export default {
   name: "SiderBar",
   components: {},
@@ -62,11 +67,7 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    isSingleChildStack() {
-      return isSingleChildStack;
-    },
-  },
+  computed: {},
   watch: {},
   created() {},
   mounted() {},
@@ -85,7 +86,7 @@ export default {
       return flag ? this.basePath : path.resolve(this.basePath, routePath);
     },
     clickToPath(routePath) {
-      let toPath = this.resolvePath(routePath);
+      let toPath = routePath.slice(0, 1) === "/" ? routePath: this.resolvePath(routePath);
       this.$router.push({ path: toPath });
     },
   },

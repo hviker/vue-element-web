@@ -16,6 +16,7 @@ export const constantRoutes = [
     name: "404",
     title: "404",
     component: () => import("@/views/errorpage/404_index"),
+    hidden: true
   },
   {
     path: "/login",
@@ -28,27 +29,20 @@ export const constantRoutes = [
     name: "Dashboard",
     component: Layout,
     title: "首页",
+    titleHidden: true,
+    meta: {
+      icon: "dashboard"
+    },
     children: [
       {
         path: "index",
-        name: "Dashboard.index",
-        title: "首页2",
+        name: "Dashboard_Index",
+        title: "首页",
         component: () => import("@/views/dashboard/dashboard_index"),
-      },
-      {
-        path: "index2",
-        name: "Dashboard.index2",
-        title: "首页3",
-        component: () => import("@/views/dashboard/dashboard_index"),
-        children: [
-          {
-            path: "index3",
-            name: "Dashboard.index3",
-            title: "首页3",
-            component: () => import("@/views/dashboard/dashboard_index"),
-          },
-        ],
-      },
+        meta: {
+          icon: "dashboard"
+        }
+      }
     ],
   },
 ];
@@ -62,16 +56,29 @@ export const asyncRouters = [
     title: "系统管理",
     meta: {
       roles: ["editor"],
+      icon: "system"
     },
     children: [
       {
         path: "deptmanagement",
-        name: "Deptmanagement",
+        name: "Deptmanagement_Index",
         title: "部门管理",
         component: () =>
           import("@/views/system/deptmanagement/deptmanagement_index"),
         meta: {
           roles: ["editor"],
+          icon: "deptmanagement"
+        },
+      },
+      {
+        path: "usermanagement",
+        name: "Usermanagement_Index",
+        title: "用户管理",
+        component: () =>
+          import("@/views/system/usermanagement/usermanagement_index"),
+        meta: {
+          roles: ["editor"],
+          icon: "usermanagement"
         },
       },
     ],
