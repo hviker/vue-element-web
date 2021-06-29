@@ -9,15 +9,17 @@ import store from "./store";
 import service from "./utils/axios";
 import "./icons/icons_index";
 import "./permission";
-import "./utils/mock"
 
-// if (process.env.NODE_ENV === "development") {
-//   require("./utils/mock");
-// }
+if (process.env.NODE_ENV === "development") {
+  require("./utils/mock");
+}
+
+Vue.use(ElementUI);
 
 import SvgIcon from "./components/SvgIcon/install";
+import Pagination from "./components/Pagination/install";
+Vue.use(Pagination);
 Vue.use(SvgIcon);
-Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = service;

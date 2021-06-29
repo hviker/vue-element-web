@@ -71,7 +71,7 @@ export const asyncRouters = [
         },
       },
       {
-        path: "usermanagement",
+        path: "usermanagement/:id",
         name: "Usermanagement_Index",
         title: "用户管理",
         component: () =>
@@ -80,6 +80,7 @@ export const asyncRouters = [
           roles: ["editor"],
           icon: "usermanagement"
         },
+        alias: "/test"
       },
     ],
   },

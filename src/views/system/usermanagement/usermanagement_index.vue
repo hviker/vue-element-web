@@ -6,14 +6,38 @@
 
 <script>
 export default {
-  name: "Usermanagement_Index",
+  name: "Usermanagement_Index2",
   components: {},
   data() {
-    return {};
+    return {
+      text: "1"
+    };
   },
+  // beforeRouteEnter(to, from, next) {
+  //   debugger
+  //   console.log(to)
+  //   console.log(from)
+  //   next(vm => {
+  //     console.log(vm.text)
+  //   })
+  // },
+  // beforeRouteUpdate(to, from,next) {
+  //   debugger
+  //    console.log(to)
+  //   console.log(from)
+  //   next()
+  // },
+  // beforeRouteLeave(to, from, next) {
+  //   console.log(to)
+  //   console.log(from)
+  //   console.log("是否要跳转")
+  //   next(false)
+  // },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    console.log(this.$router.getRoutes())
+  },
   mounted() {},
   methods: {},
 };

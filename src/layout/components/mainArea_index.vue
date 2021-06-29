@@ -2,7 +2,7 @@
   <div>
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedPathList">
-        <router-view :key="key" />
+        <router-view :key="key" linkActiveClass="menuActive" />
       </keep-alive>
     </transition>
   </div>
@@ -22,3 +22,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.menuActive {
+  color: red
+}
+</style>

@@ -1,4 +1,4 @@
-import SvgIcon from "./svgIcon_index";
+import SvgIcon from "./SvgIcon_index";
 
 /**
  * 全局注册 svg-icon 组件
